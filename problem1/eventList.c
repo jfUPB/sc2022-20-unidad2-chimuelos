@@ -14,47 +14,17 @@ EventList *CreateEventList(void)
 
 void DestroyEventList(EventList *this)
 {
-
- 
   free(this);
- 
-
-
 }
 
 Event *SearchEvent(EventList *this, char *name)
 {
 
-    Event *search=this->head;
-
-    if (this->isEmpty==0)
-    {
-      while (search!=NULL)
-      {
-        if(strcmp(name,search->eventName)==0)
-        {
-          return search;
-          search=search->next;
-        }
-      }
-
-      
-    }
-
-    search=NULL;
-    return search;
-
-    
-
 }
 
 void AddEvent(EventList *this, Event *event)
 {
-
-
-
-
-    if (this->isEmpty==1)
+  if (this->isEmpty==1)
     {
       this->isEmpty=0;
       this->head=event;
@@ -62,25 +32,55 @@ void AddEvent(EventList *this, Event *event)
       this->last=event;
       this->last->next=NULL;
     }
-    else
-    {
-
-        this->last->next=event;
-       this->last=event;
-    }
-
-    
-
+  else
+  {
+    this->last->next=event;
+    this->last=event;
+  }
 }
 
 void RemoveEvent(EventList *this, char *name)
 {
-
-  if (this->isEmpty==0)
+ Event *remover=this->head; 
+ Event *hola;
+ if (this->isEmpty==0)
+ {
+  if (strcmp(name,this->head->eventName)==0)
   {
-    /* code */
+   remover= this->head->next;
+   DestroyEvent(this->head); 
   }
+
+  else
+  {
+    hola=this->head;
+    this->head=this->head->next;
+
+    while (this->head->next!=NULL)
+    {
+      if(strcmp(name,this->head->eventName)==0)
+      {
+        hola->next=this->head->next;
+        DestroyEvent(this->head);
+      }
+      else
+      {
+        hola=hola->next;
+        this->head=this->head->next;
+      }
+    }
+  }
+  if (strcmp(name,this->last->eventName)==0)
+  {
+    hola->next=NULL;
+    DestroyEvent(this->last);
+  }
+  this->head=remover;
   
+
+ 
+ }
+   
 
 }
 
@@ -98,10 +98,7 @@ void ListEvents(EventList *this)
     {
       this->head=this->head->next;
       printf("%s\n",this->head->eventName);
-
-    
     }
-
     this->head=recorrer;
     
     
