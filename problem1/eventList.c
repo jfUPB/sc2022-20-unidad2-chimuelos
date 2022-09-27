@@ -14,7 +14,7 @@ EventList *CreateEventList(void)
 
 void DestroyEventList(EventList *this)
 {
-  free(this);
+  free(this); 
 }
 
 Event *SearchEvent(EventList *this, char *name)
@@ -35,9 +35,7 @@ Event *SearchEvent(EventList *this, char *name)
 
 void AddEvent(EventList *this, Event *event)
 {
-  
-
-  
+ 
  if (this->isEmpty==1)
     {
       this->isEmpty=0;
@@ -54,7 +52,7 @@ void AddEvent(EventList *this, Event *event)
       if (strcmp(añadir->eventName, event->eventName)==0)
       {
         return;
-      }
+      } 
       añadir=añadir->next;
       
     }
@@ -102,9 +100,6 @@ void RemoveEvent(EventList *this, char *name)
     DestroyEvent(this->last);
   }
   this->head=actual;
-  
-
- 
  }
    
 }
