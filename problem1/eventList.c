@@ -47,15 +47,18 @@ void AddEvent(EventList *this, Event *event)
   else
   {
     Event *añadir=this->head;
-    while (añadir!=NULL)
+    while (añadir!=NULL) //
     {
-      if (strcmp(añadir->eventName, event->eventName)==0)
+      if (strcmp(añadir->eventName, event->eventName)==0) //Escanea el coso y dice, el que se esta agregando y el evento son iguales
       {
-        return;
+        //si entra significa que ya existe
+        return; //Lo saca del void
       } 
-      añadir=añadir->next;
+      añadir=añadir->next; //Este es el contador
       
     }
+    //EN caso que ya no sean iguales, pasa para acá
+
     
     this->last->next=event;
     this->last=event;
@@ -64,6 +67,7 @@ void AddEvent(EventList *this, Event *event)
 
 void RemoveEvent(EventList *this, char *name)
 {
+/*
  
  Event *actual=this->head; 
  Event *siguiente;
@@ -101,7 +105,47 @@ void RemoveEvent(EventList *this, char *name)
   }
   this->head=actual;
  }
+
+
+Este código sirve pero no corre las pruebas 6, 18 y 19, básicamente porque la primera condición revisa el primer elemento
+la segunda el del medio y la ultima el ultimo, pero para lo que piden las pruebas nanay mi rey asi no se puede.
+Debemos corregir 
+ */
    
+   if (this->isEmpty == 0) //Revisión de que la lista no esté vacía, es decir contenga algo
+    {
+         Event *actual = this->head->next;
+         Event *anterior = this->head;
+         if(strcmp(name, anterior->eventName)==0)
+         {
+              if(anterior->next == NULL)
+              {
+                    this->head = NULL;
+                    this->last = NULL;
+                    this->isEmpty = 1;
+                    DestroyEvent(anterior);
+              }
+              else
+              {
+                    this->head=actual;
+                    DestroyEvent(anterior);
+              }
+         }
+         while (actual != NULL)
+         {
+              if(strcmp(name, actual->eventName)==0)
+              {
+                   anterior->next = actual->next;
+                   if (this->last->next == NULL)
+                   {
+                        this->last = anterior;
+                        DestroyEvent(actual);
+                   }
+              }
+              anterior = actual;
+              actual = actual->next;
+         }
+    }
 }
 
 
