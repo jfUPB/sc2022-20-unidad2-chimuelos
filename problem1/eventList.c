@@ -46,15 +46,15 @@ void AddEvent(EventList *this, Event *event)
     }
   else
   {
-    Event *añadir=this->head;
-    while (añadir!=NULL) //
+    Event *padd=this->head;
+    while (padd!=NULL) //
     {
-      if (strcmp(añadir->eventName, event->eventName)==0) //Escanea el coso y dice, el que se esta agregando y el evento son iguales
+      if (strcmp(padd->eventName, event->eventName)==0) //Escanea el coso y dice, el que se esta agregando y el evento son iguales
       {
         //si entra significa que ya existe
         return; //Lo saca del void
       } 
-      añadir=añadir->next; //Este es el contador
+      padd=padd->next; //Este es el contador
       
     }
     //EN caso que ya no sean iguales, pasa para acá
